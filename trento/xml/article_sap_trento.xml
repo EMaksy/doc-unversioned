@@ -133,7 +133,7 @@ As agreed on https://confluence.suse.com/x/DAEcN on our Trento doc kick off
       <listitem>
         <para>
           Monitoring of CPU and Memory usage at host level through basic integration
-          with Prometheus
+          with &prometheus;
         </para>
       </listitem>
       <listitem>
