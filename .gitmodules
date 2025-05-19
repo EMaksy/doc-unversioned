@@ -1,0 +1,3 @@
+[submodule "trento"]
+	path = trento
+	url = git@github.com:EMaksy/trento-user-faced-documentation.git
