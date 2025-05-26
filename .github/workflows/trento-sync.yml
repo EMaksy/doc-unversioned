@@ -1,4 +1,4 @@
-name: Manual Trento Submodule Sync
+name: Manual Submodule Sync
 
 on:
   workflow_dispatch:
@@ -7,8 +7,7 @@ on:
   push:
     branches:
         - main
-    paths:
-      - 'trento_suse_docs/**'
+    
 jobs:
   sync-submodule:
     runs-on: ubuntu-latest
@@ -43,7 +42,7 @@ jobs:
 
       - name: No submodule changes detected
         if: steps.changes.outputs.changed == 'false'
-        run: echo "No trento submodule changes detected. Nothing to commit."
+        run: echo "No submodule changes detected. Nothing to commit."
 
       - name: Create or update draft PR
         if: steps.changes.outputs.changed == 'true'
