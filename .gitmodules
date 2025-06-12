@@ -1,4 +1,4 @@
 [submodule "trento"]
 	path = trento
 	url = https://github.com/trento-project/docs
-	branch = single_body_docs
+	branch = fetch_docs_from_upstream
