@@ -1,4 +1,6 @@
+include::generic-attributes.adoc[]
 include::product-attributes.adoc[]
+
 
 [[sec-trento-uninstall-trentoserver]]
 == Uninstalling {trserver}

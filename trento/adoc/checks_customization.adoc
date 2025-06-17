@@ -1,3 +1,6 @@
+include::generic-attributes.adoc[]
+include::product-attributes.adoc[]
+
 [[checks_customization]]
 
 == Checks Customization

@@ -1,3 +1,4 @@
+include::generic-attributes.adoc[]
 include::product-attributes.adoc[]
 
 [[integrating-single-sign-on]]
