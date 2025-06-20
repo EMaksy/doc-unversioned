@@ -4,37 +4,36 @@ on:
   push:
     branches:
       - main
+
 jobs:
   sync-trento:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout current docs repo
-        uses: actions/checkout@v3
+      - name: Checkout target repository (doc-unversioned)
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          repository: EMaksy/doc-unversioned
           token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
-      - name: Set up Git
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Clone latest trento docs directory
+      - name: Clone latest trento-docs
         run: |
           git clone --depth 1 --branch trento_antora_submodule https://github.com/trento-project/docs.git temp-trento
           rm -rf trento
           mkdir -p trento
           cp -r temp-trento/trento/* trento/
           rm -rf temp-trento
-      - name: Create or update draft PR
-        uses: peter-evans/create-pull-request@v5
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "Sync latest trento docs"
-          title: "Sync: Update trento directory from source"
-          body: |
-            This PR was generated automatically to sync the latest contents of the `trento` directory
-            from the `trento-project/trento` repository (branch: `trento_antora_submodule`).
-          branch: "auto/trento-docs-sync"
-          draft: true
+
+      - name: Commit and push changes if any
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          if [[ -n "$(git status --porcelain trento)" ]]; then
+            git add trento
+            git commit -m "Sync latest trento docs from trento-project/docs"
+            git push origin main
+            echo "Changes pushed to EMaksy/doc-unversioned"
+          else
+            echo "No changes detected in trento directory"
+          fi
