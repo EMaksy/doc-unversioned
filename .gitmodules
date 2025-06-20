@@ -1,0 +1,4 @@
+[submodule "trento-docs"]
+	path = trento-docs
+	url = https://github.com/trento-project/docs.git
+	branch = trento_antora_submodule
