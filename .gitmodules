@@ -1,4 +1,4 @@
-[submodule "trento-docs"]
-	path = trento-docs
-	url = https://github.com/trento-project/docs.git
+[submodule "trento"]
+	path = trento
+	url = git@github.com:trento-project/docs.git
 	branch = trento_antora_submodule
