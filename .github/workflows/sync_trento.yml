@@ -22,27 +22,12 @@ jobs:
 
       - name: Clone latest trento docs directory
         run: |
-          git clone --depth 1 --branch trento_antora_submodule https://github.com/trento-project/trento.git temp-trento
+          git clone --depth 1 --branch trento_antora_submodule https://github.com/trento-project/docs.git temp-trento
           rm -rf trento
           mkdir -p trento
           cp -r temp-trento/trento/* trento/
           rm -rf temp-trento
-
-      - name: Check for changes in trento directory
-        id: changes
-        run: |
-          if [[ -n "$(git status --porcelain trento)" ]]; then
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: No changes detected
-        if: steps.changes.outputs.changed == 'false'
-        run: echo "No updates to the trento directory."
-
       - name: Create or update draft PR
-        if: steps.changes.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}

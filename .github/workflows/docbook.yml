@@ -11,7 +11,7 @@ on:
       - '**/xml/**'
       - '**/adoc/**'
       - '**/images/src/**'
-  workflow_dispatch:
+
 jobs:
   select-dc-files:
     runs-on: ubuntu-latest
@@ -22,9 +22,6 @@ jobs:
       relevant-branches: ${{ steps.select-dc-build.outputs.relevant-branches }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: true
-
 
       - name: Checking basic soundness of DC files
         uses: openSUSE/doc-ci@gha-select-dcs
@@ -54,8 +51,6 @@ jobs:
         dc-files: ${{ fromJson(needs.select-dc-files.outputs.validate-list) }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: true
       - name: Validating DC file(s) ${{ matrix.dc-files }}
         uses: openSUSE/doc-ci@gha-validate
         with:
@@ -74,8 +69,6 @@ jobs:
         dc-files: ${{ fromJson(needs.select-dc-files.outputs.build-list) }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: true
       - name: Building DC file(s) ${{ matrix.dc-files }}
         id: build-dc
         uses: openSUSE/doc-ci@gha-build
