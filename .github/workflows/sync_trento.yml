@@ -24,16 +24,34 @@ jobs:
           cp -r temp-trento/trento/* trento/
           rm -rf temp-trento
 
-      - name: Commit and push changes if any
+      - name: Commit changes if any
+        id: changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
           if [[ -n "$(git status --porcelain trento)" ]]; then
             git add trento
-            git commit -m "Sync latest trento docs from trento-project/docs"
-            git push origin main
-            echo "Changes pushed to EMaksy/doc-unversioned"
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           else
-            echo "No changes detected in trento directory"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
           fi
+
+      - name: Create or update PR
+        if: steps.changes.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: main
+          branch: auto/trento-docs-sync
+          commit-message: "Sync latest trento docs from trento-project/docs"
+          title: "Sync: Update trento directory from source"
+          body: |
+            This PR syncs the latest contents of the `trento` directory
+            from `trento-project/docs.git` (branch: `trento_antora_submodule`).
+            
+            **Changes:**
+            - Updated trento documentation files
+            
+            Please review and merge when ready.
+          draft: true
