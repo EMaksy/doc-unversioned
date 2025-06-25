@@ -1,6 +1,6 @@
 [[checks_customization]]
 
-== Checks Customization TEST
+== Checks Customization Test 2
 
 === Overview of checks Customization
 
