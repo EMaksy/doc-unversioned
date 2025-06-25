@@ -12,6 +12,17 @@ on:
       - '**/adoc/**'
       - '**/images/src/**'
 
+  pull_request:
+    paths:
+      - 'DC-*'
+      - 'xml/**'
+      - 'adoc/**'
+      - 'images/src/**'
+      - '**/DC-*'
+      - '**/xml/**'
+      - '**/adoc/**'
+      - '**/images/src/**'
+
 jobs:
   select-dc-files:
     runs-on: ubuntu-latest

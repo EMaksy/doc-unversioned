@@ -18,7 +18,7 @@ jobs:
 
       - name: Clone latest trento-docs
         run: |
-          git clone --depth 1 --branch trento_antora_submodule https://github.com/trento-project/docs.git temp-trento
+          git clone --depth 1 --branch docs_migration  https://github.com/trento-project/docs.git temp-trento
           rm -rf trento
           mkdir -p trento
           cp -r temp-trento/trento/* trento/
